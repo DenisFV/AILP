@@ -1,0 +1,40 @@
+info.app:
+  name: ailp
+  description: Artificial Intelligence Learning Platform
+  version: 1.0.0
+
+server:
+ port: 8000
+
+spring:
+ profiles.active: dev
+ datasource:
+  url: jdbc:postgresql://localhost:5432/ailp
+  driverClassName: org.postgresql.Driver
+  username: postgres
+  password: root
+ freemarker.expose-request-attributes: true
+
+ jpa:
+   database-platform: org.hibernate.dialect.PostgreSQLDialect
+   show-sql: true
+#   hibernate.ddl-auto: validate
+   generate-ddl: false
+   open-in-view: true
+   properties.hibernate:
+    temp.use_jdbc_metadata_defaults: false
+    jdbc.lob.non_contextual_creation: true
+   database:
+# session.jdbc:
+#  initialize-schema: always
+#  table-name: SPRING_SESSION
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.springframework: INFO
+  pattern:
+    file: "${info.app.name}[${hostName}] %d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:%5p} %c{1.} - %msg%n"
+    console: "%clr(${info.app.name}){yellow}%clr([${hostName}]){magenta} %clr(%d{yyyy-MM-dd}){blue} %d{HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %c{1.} - %clr(%msg%n){cyan}"
+  file: /var/log/ailp/ailp.log
