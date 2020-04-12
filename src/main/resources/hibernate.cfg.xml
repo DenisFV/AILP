@@ -5,12 +5,15 @@
 <hibernate-configuration>
     <session-factory>
 
-        <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/ailp</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.jdbc.lob.non_contextual_creation">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
 
-        <mapping class="ru.ailp.entity.UserEventEntity"/>
+        <mapping class="ru.ailp.entity.EventLogEntity"/>
+        <mapping class="ru.ailp.entity.EventsEntity"/>
+        <mapping class="ru.ailp.entity.PlansEntity"/>
+        <mapping class="ru.ailp.entity.UsersEntity"/>
 
 
         <!-- DB schema will be updated if needed -->

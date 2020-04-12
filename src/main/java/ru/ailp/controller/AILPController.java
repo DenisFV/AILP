@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Api(tags = {"AILPController"}, description = "main", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AILPController {
 
-    @GetMapping("/")
+    @GetMapping("ailp/1/1")
     @ApiOperation(value = "main", notes = "main")
     public String main() {
         return "main";

@@ -1,9 +1,10 @@
-<#import "parts/common.ftl" as c>
+<#import "parts/common.ftlh" as c>
 
 <@c.page>
     <a href="/">
         <h1>AILP</h1>
     </a>
+    <input id="_csrf" type="hidden" name="_csrf" value="${_csrf.token}"/>
     <input id="back" type="button" value="back" name="back">
     <input id="next" type="button" value="next" name="next">
     <div>
@@ -13,24 +14,42 @@
     </div>
 
     <script>
-        $('#back, #next').on('click',function (e) {
-            // var userEventDto = { userEventId: 1, eventId: 1, userId: 1, eventDate: "1", pageId: 1};
-            // var url = JSON.stringify({UserEventDto: userEventDto});
+        $('#back').on('click',function () {
 
-            var url = 'type='+e.valueOf().type+'&name='+e.valueOf().toElement.name+'&page=1&eventDate='+new Date().toISOString().replace('Z','');
+            var event =  { eventType : this.type, eventName : this.name };
+
             $.ajax({
-                url : 'ailp/',
+                url : '/ailp/event',
                 type: 'POST',
-                data: url,
-                // contentType: "application/json; charset=utf-8",
-                // dataType: "json",
-                success: function () {
-                    console.log('ok');
+                data: JSON.stringify(event),
+                contentType: 'application/json; charset=utf-8',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-TOKEN', $('#_csrf').val());
                 },
-                error: function (msg) {
-                    console.log(msg);
-                }
+                success: function (e) {
+                    console.log(e);
+                    var eventLogDto = { eventId : e.eventId, eventDate : new Date().toISOString().replace('Z','') };
+
+                    $.ajax({
+                        url : window.location.href,
+                        type: 'POST',
+                        data: JSON.stringify(eventLogDto),
+                        contentType: 'application/json',
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader('X-CSRF-TOKEN', $('#_csrf').val());
+                        },
+                        success: function (e) { console.log(e); },
+                        error: function (msg) { console.log(msg); }
+                    });
+                },
+                error: function (msg) { console.log(msg); }
             });
         });
+
+
+        $('#next').on('click',function () {
+
+        });
+
     </script>
 </@c.page>
