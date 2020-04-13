@@ -1,4 +1,4 @@
-package ru.ailp.entity.helper;
+package ru.ailp.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 

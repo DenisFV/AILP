@@ -9,12 +9,11 @@ import ru.ailp.entity.abstr.AbstractEntity;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = false)
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ApiModel(value = "EventLogDto", description = "EventLogDto")
-public final class EventLogDto extends AbstractEntity {
+public class EventLogDto extends AbstractEntity {
 
     @ApiModelProperty(value = "Индентификатор объекта", position = 1, example = "1")
     Long id;

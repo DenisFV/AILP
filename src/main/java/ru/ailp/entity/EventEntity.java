@@ -25,8 +25,4 @@ public class EventEntity extends AbstractEntity {
     private String eventName;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-
-    public EventEntity(Long id) {
-        this.id = id;
-    }
 }

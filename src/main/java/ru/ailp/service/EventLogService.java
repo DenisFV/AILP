@@ -1,13 +1,15 @@
 package ru.ailp.service;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ailp.dto.EventLogDto;
+import ru.ailp.dto.helper.EventLogHelper;
 import ru.ailp.entity.EventLogEntity;
-import ru.ailp.entity.helper.EventLogHelper;
 import ru.ailp.mapper.EventLogMapper;
 import ru.ailp.repo.EventLogRepo;
 import ru.ailp.service.abstr.AbstractService;
@@ -15,12 +17,13 @@ import ru.ailp.service.abstr.AbstractService;
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
+@Slf4j
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Service("eventLogService")
 public class EventLogService extends AbstractService<EventLogEntity, EventLogDto, EventLogRepo, EventLogMapper> {
 
-    private static final Logger logger = LogManager.getLogger(EventLogService.class);
-    private static final EventLogMapper eventLogMapper = Mappers.getMapper(EventLogMapper.class);
-    private final EventService eventService;
+    static @NonNull EventLogMapper eventLogMapper = Mappers.getMapper(EventLogMapper.class);
+    @NonNull EventService eventService;
 
     @Autowired
     public EventLogService(EventLogRepo eventLogRepo, EventService eventService) {
@@ -29,7 +32,7 @@ public class EventLogService extends AbstractService<EventLogEntity, EventLogDto
     }
 
     public Optional<EventLogDto> saveEventLogHelper(EventLogHelper eventLogHelper) {
-        logger.info("Объект на входе: {}", eventLogHelper);
+        log.info("Объект на входе: {}", eventLogHelper);
 
         eventLogHelper.setUserId(UserService.getAuthenticationUser().getId());
 

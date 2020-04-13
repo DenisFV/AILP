@@ -1,4 +1,4 @@
-package ru.ailp.entity.helper;
+package ru.ailp.dto.helper;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

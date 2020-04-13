@@ -1,7 +1,9 @@
 package ru.ailp.service;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +15,13 @@ import ru.ailp.service.abstr.AbstractService;
 
 import javax.ws.rs.NotFoundException;
 
+@Slf4j
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Service("eventService")
 public class EventService extends AbstractService<EventEntity, EventDto, EventRepo, EventMapper> {
 
-    private static final Logger logger = LogManager.getLogger(EventService.class);
-    private static final EventMapper eventMapper = Mappers.getMapper(EventMapper.class);
-    private final EventRepo eventRepo;
+    static @NonNull EventMapper eventMapper = Mappers.getMapper(EventMapper.class);
+    @NonNull EventRepo eventRepo;
 
     @Autowired
     public EventService(EventRepo eventRepo) {
@@ -27,7 +30,7 @@ public class EventService extends AbstractService<EventEntity, EventDto, EventRe
     }
 
     EventEntity findEventEntityByEventTypeAndEventName(EventEntity eventEntity) {
-        logger.info("Объекта на входе: {}", eventEntity);
+        log.info("Объекта на входе: {}", eventEntity);
 
         return eventRepo.findEventEntityByEventTypeAndEventName(eventEntity.getEventType(), eventEntity.getEventName())
                 .orElseThrow(() -> new NotFoundException("Такого события не существует"));

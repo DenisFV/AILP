@@ -1,5 +1,8 @@
 package ru.ailp.service;
 
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -13,10 +16,11 @@ import ru.ailp.repo.UserRepo;
 
 import java.util.Optional;
 
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Service("userService")
 public class UserService implements UserDetailsService {
 
-    private final UserRepo userRepo;
+    @NonNull UserRepo userRepo;
 
     @Autowired
     public UserService(UserRepo userRepo) {

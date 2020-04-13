@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.ailp.entity.abstr.AbstractEntity;
-import ru.ailp.entity.helper.RoleEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
