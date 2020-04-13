@@ -1,7 +1,7 @@
 package ru.ailp.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import ru.ailp.entity.EventLogEntity;
+import ru.ailp.repo.abstr.CommonRepo;
 
-public interface EventLogRepo extends JpaRepository<EventLogEntity, Long> {
+public interface EventLogRepo extends CommonRepo<EventLogEntity> {
 }

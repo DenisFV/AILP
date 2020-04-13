@@ -37,5 +37,5 @@ logging:
     org.springframework: INFO
   pattern:
     file: "${info.app.name}[${hostName}] %d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:%5p} %c{1.} - %msg%n"
-    console: "%clr(${info.app.name}){yellow}%clr([${hostName}]){magenta} %clr(%d{yyyy-MM-dd}){blue} %d{HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %c{1.} - %clr(%msg%n){cyan}"
+    console: "%clr(${info.app.name}){yellow}%clr([${hostName}]){magenta} %clr(%d{yyyy-MM-dd}){blue} %d{HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(%c{1.}){cyan} - %msg%n"
   file: /var/log/ailp/ailp.log

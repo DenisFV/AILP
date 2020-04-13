@@ -1,8 +1,11 @@
 package ru.ailp.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.ailp.entity.abstr.AbstractEntity;
+import ru.ailp.entity.helper.RoleEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,14 +13,17 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = false)
 @Data
 @Entity
 @Table(name = "users", schema = "ailp")
-public class UsersEntity implements UserDetails {
+public class UserEntity extends AbstractEntity implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_user_id_seq")
     @SequenceGenerator(name = "users_user_id_seq", sequenceName = "ailp.users_user_id_seq", allocationSize = 1)
-    private Long userId;
+    @Column(name = "user_id")
+    private Long id;
     private Long planId;
     private String username;
     private String password;

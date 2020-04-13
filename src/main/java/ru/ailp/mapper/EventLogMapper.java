@@ -1,16 +1,18 @@
 package ru.ailp.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.ailp.dto.EventLogDto;
 import ru.ailp.entity.EventLogEntity;
-
-import java.util.List;
+import ru.ailp.entity.helper.EventLogHelper;
+import ru.ailp.mapper.abstr.CommonMapper;
 
 @Mapper
-public interface EventLogMapper {
-    List<EventLogDto> eventLogEntityListToEventLogDtoList(List<EventLogEntity> userEventEntityList);
+public interface EventLogMapper extends CommonMapper<EventLogEntity, EventLogDto> {
 
-    EventLogDto eventLogEntityToEventLogDto(EventLogEntity eventLogEntity);
+    @Mapping(target = "eventId", source = "eventLogHelper.eventEntity.id")
+    EventLogDto eventLogHelperToEventLogDto(EventLogHelper eventLogHelper);
 
-    EventLogEntity eventLogDtoToEventLogEntity(EventLogDto eventLogDto);
+    @Mapping(target = "eventEntity", expression = "java(new EventEntity(eventLogHelper.getId()))")
+    EventLogHelper eventLogDtoToEventLogHelper(EventLogDto eventLogDto);
 }

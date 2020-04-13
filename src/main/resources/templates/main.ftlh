@@ -14,40 +14,26 @@
     </div>
 
     <script>
-        $('#back').on('click',function () {
+        $('#back').on('click', function () {
 
-            var event =  { eventType : this.type, eventName : this.name };
+            var eventEntity = {eventType: this.type, eventName: this.name};
+            var eventLogDto = {eventEntity: eventEntity, eventDate: new Date().toISOString().replace('Z', '')};
 
             $.ajax({
-                url : '/ailp/event',
+                url: '/event-log/1/1',
                 type: 'POST',
-                data: JSON.stringify(event),
-                contentType: 'application/json; charset=utf-8',
-                beforeSend: function(xhr) {
+                data: JSON.stringify(eventLogDto),
+                contentType: 'application/json',
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRF-TOKEN', $('#_csrf').val());
                 },
-                success: function (e) {
-                    console.log(e);
-                    var eventLogDto = { eventId : e.eventId, eventDate : new Date().toISOString().replace('Z','') };
-
-                    $.ajax({
-                        url : window.location.href,
-                        type: 'POST',
-                        data: JSON.stringify(eventLogDto),
-                        contentType: 'application/json',
-                        beforeSend: function(xhr) {
-                            xhr.setRequestHeader('X-CSRF-TOKEN', $('#_csrf').val());
-                        },
-                        success: function (e) { console.log(e); },
-                        error: function (msg) { console.log(msg); }
-                    });
-                },
+                success: function (e) { console.log(e); },
                 error: function (msg) { console.log(msg); }
             });
         });
 
 
-        $('#next').on('click',function () {
+        $('#next').on('click', function () {
 
         });
 

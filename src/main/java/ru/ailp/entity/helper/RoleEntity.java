@@ -1,8 +1,9 @@
-package ru.ailp.entity;
+package ru.ailp.entity.helper;
 
 import org.springframework.security.core.GrantedAuthority;
 
 public enum RoleEntity implements GrantedAuthority {
+
     USER, ADMIN;
 
     @Override
