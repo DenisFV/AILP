@@ -5,9 +5,12 @@ import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ailp.controller.abstr.AbstractController;
+import ru.ailp.controller.link.DefaultLink;
+import ru.ailp.controller.link.EventLogLink;
 import ru.ailp.dto.EventLogDto;
 import ru.ailp.dto.helper.EventLogHelper;
 import ru.ailp.service.EventLogService;
@@ -19,6 +22,7 @@ import ru.ailp.service.EventLogService;
 public class EventLogController extends AbstractController<EventLogDto, EventLogService> {
 
     @NonNull EventLogService eventLogService;
+    @NonNull DefaultLink<EventLogDto> link = new EventLogLink(this);
 
     @Autowired
     public EventLogController(EventLogService eventLogService) {
@@ -27,7 +31,7 @@ public class EventLogController extends AbstractController<EventLogDto, EventLog
     }
 
     @PostMapping(value = "/{pageId}/{lessonId}")
-    public ResponseEntity<EventLogDto> saveEventLogHelper(
+    public ResponseEntity<EntityModel<EventLogDto>> saveEventLogHelper(
             @PathVariable("pageId") Long pageId,
             @PathVariable("lessonId") Long lessonId,
             @RequestBody EventLogHelper eventLogHelper
@@ -37,7 +41,7 @@ public class EventLogController extends AbstractController<EventLogDto, EventLog
         eventLogHelper.setLessonId(lessonId);
 
         return eventLogService.saveEventLogHelper(eventLogHelper)
-                .map(ResponseEntity::ok)
+                .map(e -> ResponseEntity.ok(link.toModel(e)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
