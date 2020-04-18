@@ -9,6 +9,6 @@ class EventControllerTest extends AbstractTest {
     private final static EventDto entity = EventDto.builder().build();
 
     EventControllerTest() {
-        super(url, entity, EventController.class);
+        super(url, entity);
     }
 }
