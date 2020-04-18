@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 //@AutoConfigureRestDocs(outputDir = "build/generated-snippets")
 public abstract class AbstractTest {
 
@@ -63,7 +65,8 @@ public abstract class AbstractTest {
         this.mockMvcWithOutAuthorization.perform(get(url + "/test"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("http://" + host + "/login")).andExpect(status().is3xxRedirection());
+                .andExpect(redirectedUrl("http://" + host + "/login"))
+                .andExpect(status().is3xxRedirection());
     }
 
     @SneakyThrows

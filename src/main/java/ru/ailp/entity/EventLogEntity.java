@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "event_log", schema = "ailp")
+@Table(name = "event_logs", schema = "ailp")
 public class EventLogEntity extends AbstractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_log_event_log_id_seq")
-    @SequenceGenerator(name = "event_log_event_log_id_seq", sequenceName = "ailp.event_log_event_log_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_logs_event_log_id_seq")
+    @SequenceGenerator(name = "event_logs_event_log_id_seq", sequenceName = "ailp.event_logs_event_log_id_seq", allocationSize = 1)
     @Column(name = "event_log_id")
     private Long id;
     private Long userId;

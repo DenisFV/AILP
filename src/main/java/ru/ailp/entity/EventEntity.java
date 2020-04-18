@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 public class EventEntity extends AbstractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_event_id_seq")
-    @SequenceGenerator(name = "event_event_id_seq", sequenceName = "ailp.event_event_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "events_event_id_seq")
+    @SequenceGenerator(name = "events_event_id_seq", sequenceName = "ailp.events_event_id_seq", allocationSize = 1)
     @Column(name = "event_id")
     private Long id;
     private String eventType;
