@@ -9,6 +9,6 @@ class EventLogControllerTest extends AbstractTest {
     private final static EventLogDto entity = EventLogDto.builder().build();
 
     EventLogControllerTest() {
-        super(url, entity);
+        super(url, entity, EventLogController.class);
     }
 }
