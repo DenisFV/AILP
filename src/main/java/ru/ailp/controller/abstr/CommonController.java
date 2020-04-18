@@ -26,4 +26,7 @@ public interface CommonController<T extends AbstractEntity> {
 
     @DeleteMapping("/")
     ResponseEntity<CollectionModel<EntityModel<T>>> deleteAll();
+
+    @GetMapping("/test")
+    ResponseEntity test();
 }

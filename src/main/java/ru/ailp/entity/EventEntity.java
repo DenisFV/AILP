@@ -5,10 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ru.ailp.entity.abstr.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = false)
@@ -19,6 +16,8 @@ import java.time.LocalDateTime;
 public class EventEntity extends AbstractEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_event_id_seq")
+    @SequenceGenerator(name = "event_event_id_seq", sequenceName = "ailp.event_event_id_seq", allocationSize = 1)
     @Column(name = "event_id")
     private Long id;
     private String eventType;

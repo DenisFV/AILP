@@ -77,4 +77,11 @@ public abstract class AbstractController<T extends AbstractEntity, S extends Com
                 .map(e -> ResponseEntity.ok(link.toCollectionModel(e)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/test")
+    public ResponseEntity test() {
+        log.info("Проверка контролера");
+
+        return ResponseEntity.ok().build();
+    }
 }

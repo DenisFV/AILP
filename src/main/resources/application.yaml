@@ -5,6 +5,7 @@ info.app:
 
 server:
  port: 8000
+ address: localhost
 
 spring:
  profiles.active: dev
