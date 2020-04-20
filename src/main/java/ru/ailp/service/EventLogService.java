@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ailp.dto.EventLogDto;
-import ru.ailp.dto.helper.EventLogHelper;
+import ru.ailp.dto.helper.EventLogEventHelper;
 import ru.ailp.entity.EventLogEntity;
 import ru.ailp.mapper.EventLogMapper;
 import ru.ailp.repo.EventLogRepo;
@@ -22,7 +22,8 @@ import java.util.Optional;
 @Service("eventLogService")
 public class EventLogService extends AbstractService<EventLogEntity, EventLogDto, EventLogRepo, EventLogMapper> {
 
-    static @NonNull EventLogMapper eventLogMapper = Mappers.getMapper(EventLogMapper.class);
+    @NonNull
+    private static EventLogMapper eventLogMapper = Mappers.getMapper(EventLogMapper.class);
     @NonNull EventService eventService;
 
     @Autowired
@@ -31,17 +32,17 @@ public class EventLogService extends AbstractService<EventLogEntity, EventLogDto
         this.eventService = eventService;
     }
 
-    public Optional<EventLogDto> saveEventLogHelper(EventLogHelper eventLogHelper) {
-        log.info("Объект на входе: {}", eventLogHelper);
+    public Optional<EventLogDto> saveEventLogEventHelper(EventLogEventHelper eventLogEventHelper) {
+        log.info("Объект на входе: {}", eventLogEventHelper);
 
-        eventLogHelper.setUserId(UserService.getAuthenticationUser().getId());
+        eventLogEventHelper.setUserId(UserService.getAuthenticationUser().getId());
 
-        eventLogHelper.setEventEntity(
-                Optional.ofNullable(eventLogHelper.getEventEntity())
+        eventLogEventHelper.setEventDto(
+                Optional.ofNullable(eventLogEventHelper.getEventDto())
                         .map(eventService::findEventEntityByEventTypeAndEventName)
                         .orElseThrow(() -> new NotFoundException("Событие не указано"))
         );
 
-        return save(eventLogMapper.eventLogHelperToEventLogDto(eventLogHelper));
+        return save(eventLogMapper.eventLogEventHelperToEventLogDto(eventLogEventHelper));
     }
 }

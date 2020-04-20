@@ -15,7 +15,7 @@ public interface CommonService<T extends AbstractEntity> {
 
     T update(T t);
 
-    T add(T t);
+    T create(T t);
 
     Optional<T> deleteById(Long id);
 

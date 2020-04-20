@@ -20,7 +20,8 @@ import javax.ws.rs.NotFoundException;
 @Service("eventService")
 public class EventService extends AbstractService<EventEntity, EventDto, EventRepo, EventMapper> {
 
-    static @NonNull EventMapper eventMapper = Mappers.getMapper(EventMapper.class);
+    @NonNull
+    private static EventMapper eventMapper = Mappers.getMapper(EventMapper.class);
     @NonNull EventRepo eventRepo;
 
     @Autowired
@@ -29,10 +30,11 @@ public class EventService extends AbstractService<EventEntity, EventDto, EventRe
         this.eventRepo = eventRepo;
     }
 
-    EventEntity findEventEntityByEventTypeAndEventName(EventEntity eventEntity) {
-        log.info("Объекта на входе: {}", eventEntity);
+    EventDto findEventEntityByEventTypeAndEventName(EventDto eventDto) {
+        log.info("Объекта на входе: {}", eventDto);
 
-        return eventRepo.findEventEntityByEventTypeAndEventName(eventEntity.getEventType(), eventEntity.getEventName())
+        return eventRepo.findEventEntityByEventTypeAndEventName(eventDto.getEventType(), eventDto.getEventName())
+                .map(eventMapper::entityToDto)
                 .orElseThrow(() -> new NotFoundException("Такого события не существует"));
     }
 }

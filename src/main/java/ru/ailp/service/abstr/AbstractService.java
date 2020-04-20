@@ -16,7 +16,8 @@ import java.util.Optional;
 @Slf4j
 @FieldDefaults(makeFinal=true, level= AccessLevel.PRIVATE)
 @RequiredArgsConstructor
-public abstract class AbstractService<T extends AbstractEntity, D extends AbstractEntity, R extends CommonRepo<T>, M extends CommonMapper<T, D>> implements CommonService<D> {
+public abstract class AbstractService<T extends AbstractEntity, D extends AbstractEntity, R extends CommonRepo<T>,
+        M extends CommonMapper<T, D>> implements CommonService<D> {
 
     @NonNull R repo;
     @NonNull M mapper;
@@ -51,7 +52,7 @@ public abstract class AbstractService<T extends AbstractEntity, D extends Abstra
         return Optional.ofNullable(
                 Optional.ofNullable(d.getId())
                         .map(e -> update(d))
-                        .orElseGet(() -> add(d))
+                        .orElseGet(() -> create(d))
         );
     }
 
@@ -68,7 +69,7 @@ public abstract class AbstractService<T extends AbstractEntity, D extends Abstra
     }
 
     @Override
-    public D add(D d) {
+    public D create(D d) {
         log.info("Создание нового объекта");
 
         return mapper.entityToDto(repo.save(mapper.dtoToEntity(d)));

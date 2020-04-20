@@ -1,24 +1,20 @@
 spring:
  datasource:
-  url: 'jdbc:h2:mem:db;INIT=CREATE SCHEMA IF NOT EXISTS ailp'
-
+  url: 'jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS ailp'
   driverClassName: org.h2.Driver
   username: sa
   password: password
 
- flyway:
-  locations: classpath:/db/migration/
-
  jpa:
-  database-platform: org.hibernate.dialect.H2Dialect
   show-sql: true
   hibernate.ddl-auto: none
-  generate-ddl: true
+  generate-ddl: false
   open-in-view: true
-  properties.hibernate.format_sql: true
   properties.hibernate:
    format_sql: true
    temp.use_jdbc_metadata_defaults: false
    jdbc.lob.non_contextual_creation: true
+   dialect: org.hibernate.dialect.H2Dialect
+   id.new_generator_mappings: true
 
  h2.console.enabled: false

@@ -1,13 +1,14 @@
-CREATE TABLE ailp.users (
-                          user_id BIGSERIAL NOT NULL,
-                          plan_id BIGINT,
-                          first_name VARCHAR(150),
-                          last_name VARCHAR(150),
-                          username VARCHAR(150),
-                          password VARCHAR(150),
-                          create_date TIMESTAMP(0) WITHOUT TIME ZONE,
-                          is_active BOOLEAN,
-                          PRIMARY KEY(user_id)
+CREATE TABLE ailp.users
+(
+  user_id     BIGINT NOT NULL,
+  plan_id     BIGINT,
+  first_name  VARCHAR(150),
+  last_name   VARCHAR(150),
+  username    VARCHAR(150),
+  password    VARCHAR(150),
+  create_date TIMESTAMP(0) WITHOUT TIME ZONE,
+  is_active   BOOLEAN,
+  PRIMARY KEY (user_id)
 );
 
 COMMENT ON TABLE ailp.users
@@ -37,14 +38,15 @@ COMMENT ON COLUMN ailp.users.create_date
 COMMENT ON COLUMN ailp.users.is_active
   IS 'Активность пользователя';
 
-CREATE TABLE ailp.plans (
-                          plan_id BIGSERIAL NOT NULL,
-                          start_date TIMESTAMP(0) WITHOUT TIME ZONE,
-                          end_date TIMESTAMP(0) WITHOUT TIME ZONE,
-                          lesson_1 BIGINT,
-                          lesson_2 BIGINT,
-                          lesson_3 BIGINT,
-                          PRIMARY KEY(plan_id)
+CREATE TABLE ailp.plans
+(
+  plan_id    BIGINT NOT NULL,
+  start_date TIMESTAMP(0) WITHOUT TIME ZONE,
+  end_date   TIMESTAMP(0) WITHOUT TIME ZONE,
+  lesson_1   BIGINT,
+  lesson_2   BIGINT,
+  lesson_3   BIGINT,
+  PRIMARY KEY (plan_id)
 );
 
 COMMENT ON TABLE ailp.plans
@@ -68,14 +70,15 @@ COMMENT ON COLUMN ailp.plans.lesson_2
 COMMENT ON COLUMN ailp.plans.lesson_3
   IS 'Третий урок';
 
-CREATE TABLE ailp.event_logs (
-                              event_log_id BIGSERIAL NOT NULL,
-                              user_id BIGINT,
-                              event_id BIGINT,
-                              event_date TIMESTAMP(0) WITHOUT TIME ZONE,
-                              page_id BIGINT,
-                              lesson_id BIGINT,
-                              PRIMARY KEY(event_log_id)
+CREATE TABLE ailp.event_logs
+(
+  event_log_id BIGINT NOT NULL,
+  user_id      BIGINT,
+  event_id     BIGINT,
+  event_date   TIMESTAMP(0) WITHOUT TIME ZONE,
+  page_id      BIGINT,
+  lesson_id    BIGINT,
+  PRIMARY KEY (event_log_id)
 );
 
 COMMENT ON TABLE ailp.event_logs
@@ -99,13 +102,14 @@ COMMENT ON COLUMN ailp.event_logs.page_id
 COMMENT ON COLUMN ailp.event_logs.lesson_id
   IS 'Урок на котором было событие';
 
-CREATE TABLE ailp.events (
-                           event_id BIGSERIAL NOT NULL,
-                           event_type VARCHAR(100),
-                           event_name VARCHAR(100),
-                           start_date TIMESTAMP(0) WITHOUT TIME ZONE,
-                           end_date TIMESTAMP(0) WITHOUT TIME ZONE,
-                           PRIMARY KEY(event_id)
+CREATE TABLE ailp.events
+(
+  event_id   BIGINT NOT NULL,
+  event_type VARCHAR(100),
+  event_name VARCHAR(100),
+  start_date TIMESTAMP(0) WITHOUT TIME ZONE,
+  end_date   TIMESTAMP(0) WITHOUT TIME ZONE,
+  PRIMARY KEY (event_id)
 );
 
 COMMENT ON TABLE ailp.events
@@ -137,3 +141,19 @@ COMMENT ON COLUMN ailp.user_role.user_id
 
 COMMENT ON COLUMN ailp.user_role.roles
   IS 'Роль';
+
+CREATE SEQUENCE IF NOT EXISTS ailp.events_event_id_seq START 1;
+alter table ailp.events
+  ALTER column event_id SET DEFAULT nextval('ailp.events_event_id_seq');
+
+CREATE SEQUENCE IF NOT EXISTS ailp.event_logs_event_log_id_seq START 1;
+alter table ailp.event_logs
+  ALTER column event_log_id SET DEFAULT nextval('ailp.event_logs_event_log_id_seq');
+
+CREATE SEQUENCE IF NOT EXISTS ailp.users_user_id_seq START 1;
+alter table ailp.users
+  ALTER column user_id SET DEFAULT nextval('ailp.users_user_id_seq');
+
+CREATE SEQUENCE IF NOT EXISTS ailp.plans_plan_id_seq START 1;
+alter table ailp.plans
+  ALTER column plan_id SET DEFAULT nextval('ailp.plans_plan_id_seq');

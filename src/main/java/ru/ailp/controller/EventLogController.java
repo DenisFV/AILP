@@ -12,7 +12,7 @@ import ru.ailp.controller.abstr.AbstractController;
 import ru.ailp.controller.link.DefaultLink;
 import ru.ailp.controller.link.EventLogLink;
 import ru.ailp.dto.EventLogDto;
-import ru.ailp.dto.helper.EventLogHelper;
+import ru.ailp.dto.helper.EventLogEventHelper;
 import ru.ailp.service.EventLogService;
 
 @RestController
@@ -31,16 +31,16 @@ public class EventLogController extends AbstractController<EventLogDto, EventLog
     }
 
     @PostMapping(value = "/{pageId}/{lessonId}")
-    public ResponseEntity<EntityModel<EventLogDto>> saveEventLogHelper(
+    public ResponseEntity<EntityModel<EventLogDto>> saveEventLogEventHelper(
             @PathVariable("pageId") Long pageId,
             @PathVariable("lessonId") Long lessonId,
-            @RequestBody EventLogHelper eventLogHelper
+            @RequestBody EventLogEventHelper eventLogEventHelper
     ) {
 
-        eventLogHelper.setPageId(pageId);
-        eventLogHelper.setLessonId(lessonId);
+        eventLogEventHelper.setPageId(pageId);
+        eventLogEventHelper.setLessonId(lessonId);
 
-        return eventLogService.saveEventLogHelper(eventLogHelper)
+        return eventLogService.saveEventLogEventHelper(eventLogEventHelper)
                 .map(e -> ResponseEntity.ok(link.toModel(e)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

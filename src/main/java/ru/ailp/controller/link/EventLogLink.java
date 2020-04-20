@@ -6,7 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import ru.ailp.controller.EventLogController;
 import ru.ailp.dto.EventLogDto;
-import ru.ailp.dto.helper.EventLogHelper;
+import ru.ailp.dto.helper.EventLogEventHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,10 +31,10 @@ public class EventLogLink extends DefaultLink<EventLogDto> {
     Link[] addLinks(EventLogDto eventLogDto, List<Link> links) {
         List<Link> linkList = new ArrayList<>();
 
-        linkList.add(linkTo(methodOn(EventLogController.class).saveEventLogHelper(eventLogDto.getPageId(), eventLogDto.getLessonId(), new EventLogHelper()))
-                .withRel("saveEventLogHelper")
+        linkList.add(linkTo(methodOn(EventLogController.class).saveEventLogEventHelper(eventLogDto.getPageId(), eventLogDto.getLessonId(), new EventLogEventHelper()))
+                .withRel("saveEventLogEventHelper")
                 .withType(HttpMethod.POST.name())
-                .withTitle("Сохранить EventLogHelper обект"));
+                .withTitle("Сохранить EventLogEventHelper обект"));
 
         return super.addLinks(eventLogDto, linkList);
     }
