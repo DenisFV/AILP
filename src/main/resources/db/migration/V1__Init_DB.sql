@@ -142,6 +142,62 @@ COMMENT ON COLUMN ailp.user_role.user_id
 COMMENT ON COLUMN ailp.user_role.roles
   IS 'Роль';
 
+CREATE TABLE ailp.lessons
+(
+  lesson_id   BIGINT NOT NULL,
+  lesson_name text,
+  start_date  TIMESTAMP(0) WITHOUT TIME ZONE,
+  end_date    TIMESTAMP(0) WITHOUT TIME ZONE,
+  PRIMARY KEY (lesson_id)
+);
+
+COMMENT ON TABLE ailp.lessons
+  IS 'Таблица уроков';
+
+COMMENT ON COLUMN ailp.lessons.lesson_id
+  IS 'ID записи (суррогатный ключ)';
+
+COMMENT ON COLUMN ailp.lessons.lesson_name
+  IS 'Наименование урока';
+COMMENT ON COLUMN ailp.lessons.start_date
+  IS 'Дата начала действия урока';
+
+COMMENT ON COLUMN ailp.lessons.end_date
+  IS 'Дата окончания действия урока';
+
+CREATE TABLE ailp.lesson_tests
+(
+  lesson_test_id BIGINT NOT NULL,
+  lesson_id      BIGINT,
+  test_id        BIGINT,
+  test_type_id   BIGINT,
+  start_date     TIMESTAMP(0) WITHOUT TIME ZONE,
+  end_date       TIMESTAMP(0) WITHOUT TIME ZONE,
+  PRIMARY KEY (lesson_test_id)
+);
+
+COMMENT ON TABLE ailp.lesson_tests
+  IS 'Таблица тестов по урокам';
+
+COMMENT ON COLUMN ailp.lesson_tests.lesson_test_id
+  IS 'ID записи (суррогатный ключ)';
+
+COMMENT ON COLUMN ailp.lesson_tests.lesson_id
+  IS 'ID урока';
+
+COMMENT ON COLUMN ailp.lesson_tests.test_id
+  IS 'ID теста';
+
+COMMENT ON COLUMN ailp.lesson_tests.test_type_id
+  IS 'ID типа теста';
+
+COMMENT ON COLUMN ailp.lesson_tests.start_date
+  IS 'Дата начала действия теста по уроку';
+
+COMMENT ON COLUMN ailp.lesson_tests.end_date
+  IS 'Дата окончания действия теста по уроку';
+
+
 CREATE SEQUENCE IF NOT EXISTS ailp.events_event_id_seq START 1;
 alter table ailp.events
   ALTER column event_id SET DEFAULT nextval('ailp.events_event_id_seq');
@@ -157,3 +213,11 @@ alter table ailp.users
 CREATE SEQUENCE IF NOT EXISTS ailp.plans_plan_id_seq START 1;
 alter table ailp.plans
   ALTER column plan_id SET DEFAULT nextval('ailp.plans_plan_id_seq');
+
+CREATE SEQUENCE IF NOT EXISTS ailp.lessons_lesson_id_seq START 1;
+alter table ailp.lessons
+  ALTER column lesson_id SET DEFAULT nextval('ailp.lessons_lesson_id_seq');
+
+CREATE SEQUENCE IF NOT EXISTS ailp.lesson_tests_lesson_test_id_seq START 1;
+alter table ailp.lesson_tests
+  ALTER column lesson_test_id SET DEFAULT nextval('ailp.lesson_tests_lesson_test_id_seq');

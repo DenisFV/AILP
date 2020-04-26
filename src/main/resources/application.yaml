@@ -1,5 +1,5 @@
 info.app:
-  name: ailp
+  name: ailp-crud
   description: Artificial Intelligence Learning Platform
   version: 1.0.0
 
@@ -17,16 +17,16 @@ spring:
  freemarker.expose-request-attributes: true
 
  jpa:
-   database-platform: org.hibernate.dialect.PostgreSQLDialect
    show-sql: true
    hibernate.ddl-auto: none
-   generate-ddl: true
+   generate-ddl: false
    open-in-view: true
-   properties.hibernate.format_sql: true
    properties.hibernate:
     format_sql: true
     temp.use_jdbc_metadata_defaults: false
     jdbc.lob.non_contextual_creation: true
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+
  session.jdbc:
   initialize-schema: always
   table-name: SPRING_SESSION
