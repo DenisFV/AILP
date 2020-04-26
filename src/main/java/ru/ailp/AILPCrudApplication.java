@@ -1,17 +1,15 @@
 package ru.ailp;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @Slf4j
-public class ApplicationAILP {
+public class AILPCrudApplication {
 
     public static void main(String[] args) {
-        log.info("ApplicationAILP starting");
-        SpringApplication.run(ApplicationAILP.class, args);
+        log.info("AILPCrudApplication starting");
+        SpringApplication.run(AILPCrudApplication.class, args);
     }
 }

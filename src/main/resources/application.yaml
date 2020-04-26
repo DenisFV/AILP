@@ -1,6 +1,6 @@
 info.app:
   name: ailp-crud
-  description: Artificial Intelligence Learning Platform
+  description: CRUD for Artificial Intelligence Learning Platform
   version: 1.0.0
 
 server:

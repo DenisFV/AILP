@@ -23,7 +23,7 @@ import java.util.Optional;
 public class EventLogService extends AbstractService<EventLogEntity, EventLogDto, EventLogRepo, EventLogMapper> {
 
     @NonNull
-    private static EventLogMapper eventLogMapper = Mappers.getMapper(EventLogMapper.class);
+    static EventLogMapper eventLogMapper = Mappers.getMapper(EventLogMapper.class);
     @NonNull EventService eventService;
 
     @Autowired

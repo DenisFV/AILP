@@ -1,7 +1,6 @@
 package ru.ailp.service.abstr;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@FieldDefaults(makeFinal=true, level= AccessLevel.PRIVATE)
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 public abstract class AbstractService<T extends AbstractEntity, D extends AbstractEntity, R extends CommonRepo<T>,
         M extends CommonMapper<T, D>> implements CommonService<D> {

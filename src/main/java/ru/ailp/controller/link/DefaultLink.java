@@ -1,5 +1,7 @@
 package ru.ailp.controller.link;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -16,9 +18,10 @@ import java.util.stream.Stream;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class DefaultLink<T extends AbstractEntity> implements RepresentationModelAssembler<T, EntityModel<T>> {
 
-    private AbstractController controller;
+    AbstractController controller;
 
     public DefaultLink(AbstractController controller) {
         this.controller = controller;

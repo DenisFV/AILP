@@ -1,2 +1,2 @@
-# AILP
-Artificial Intelligence Learning Platform
+# AILP-CRUD
+CRUD for Artificial Intelligence Learning Platform
