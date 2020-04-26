@@ -21,7 +21,7 @@ import javax.ws.rs.NotFoundException;
 public class EventService extends AbstractService<EventEntity, EventDto, EventRepo, EventMapper> {
 
     @NonNull
-    private static EventMapper eventMapper = Mappers.getMapper(EventMapper.class);
+    static EventMapper eventMapper = Mappers.getMapper(EventMapper.class);
     @NonNull EventRepo eventRepo;
 
     @Autowired

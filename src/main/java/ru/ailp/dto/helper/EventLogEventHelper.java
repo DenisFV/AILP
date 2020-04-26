@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import ru.ailp.dto.EventDto;
-import ru.ailp.entity.EventEntity;
 import ru.ailp.entity.abstr.AbstractEntity;
 
 import java.time.LocalDateTime;

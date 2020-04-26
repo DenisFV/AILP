@@ -17,7 +17,7 @@
         $('#back').on('click', function () {
 
             var eventDto = {eventType: 'click', eventName: this.name};
-            var eventLogDto = {eventDto: eventDto, eventDate: new Date().toISOString().replace('Z', '')};
+            var eventLogDto = {eventDto: eventDto, eventDate: new Date()};
 
             $.ajax({
                 url: '/event-log/1/1',

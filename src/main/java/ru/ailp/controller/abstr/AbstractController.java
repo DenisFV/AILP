@@ -16,11 +16,11 @@ import ru.ailp.service.abstr.CommonService;
 
 @Slf4j
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public abstract class AbstractController<T extends AbstractEntity, S extends CommonService<T>> implements CommonController<T> {
 
     @NonNull
-    final S service;
+    S service;
     DefaultLink<T> link = new DefaultLink<>(this);
 
     @RequestMapping(value = "/{id:[\\d]+}", method = RequestMethod.HEAD)
