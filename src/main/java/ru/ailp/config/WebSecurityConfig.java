@@ -2,6 +2,7 @@ package ru.ailp.config;
 
 import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -20,27 +21,45 @@ import ru.ailp.service.UserService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @NonNull UserService userService;
+    @NonNull CustomLogoutSuccessHandler logoutSuccessHandler;
+    @NonNull CustomLoginSuccessHandler loginSuccessHandler;
 
     @Autowired
-    public WebSecurityConfig(UserService userService) {
+    public WebSecurityConfig(UserService userService, CustomLogoutSuccessHandler logoutSuccessHandler,
+                             CustomLoginSuccessHandler loginSuccessHandler) {
         this.userService = userService;
+        this.logoutSuccessHandler = logoutSuccessHandler;
+        this.loginSuccessHandler = loginSuccessHandler;
+    }
+
+    @SneakyThrows
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
+        auth
+                .inMemoryAuthentication()
+                .withUser("admin").password("1").roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/static/**")
+                .antMatchers("/static/**")
                 .permitAll()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
+
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .successHandler(loginSuccessHandler)
                 .permitAll()
+
                 .and()
                 .rememberMe()
+
                 .and()
                 .logout()
+                .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll();
     }
 
