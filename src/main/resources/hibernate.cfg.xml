@@ -16,6 +16,12 @@
         <mapping class="ru.ailp.entity.EventEntity"/>
         <mapping class="ru.ailp.entity.PlanEntity"/>
         <mapping class="ru.ailp.entity.UserEntity"/>
+        <mapping class="ru.ailp.entity.LessonTestEntity"/>
+        <mapping class="ru.ailp.entity.PageEntity"/>
+        <mapping class="ru.ailp.entity.QuestionEntity"/>
+        <mapping class="ru.ailp.entity.TestResultEntity"/>
+        <mapping class="ru.ailp.entity.LessonEntity"/>
+        <mapping class="ru.ailp.entity.AnswerEntity"/>
 
 
         <!-- DB schema will be updated if needed -->

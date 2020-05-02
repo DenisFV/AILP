@@ -31,10 +31,10 @@ public class UserEntity extends AbstractEntity implements UserDetails {
     private LocalDateTime createDate;
     private Boolean isActive;
 
-    @ElementCollection(targetClass = RoleEntity.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = UserRoleEntity.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), schema = "ailp")
     @Enumerated(EnumType.STRING)
-    private Set<RoleEntity> roles = new HashSet<>();
+    private Set<UserRoleEntity> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

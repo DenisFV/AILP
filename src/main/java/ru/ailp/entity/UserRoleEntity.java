@@ -2,7 +2,7 @@ package ru.ailp.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
-public enum RoleEntity implements GrantedAuthority {
+public enum UserRoleEntity implements GrantedAuthority {
 
     USER, ADMIN;
 
