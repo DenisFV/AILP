@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователя не существует"));
     }
 
-    static UserEntity getAuthenticationUser() {
+    public static UserEntity getAuthenticationUser() {
         return Optional.ofNullable(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
                 .map(Authentication::getPrincipal)

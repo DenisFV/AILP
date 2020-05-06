@@ -211,6 +211,7 @@ create table ailp.test_results
   test_id        bigint,
   question_id    bigint,
   user_id        bigint,
+  answer_id      bigint,
   result         text,
   comment        text,
   PRIMARY KEY (test_result_id)
@@ -225,6 +226,8 @@ Comment on column ailp.test_results.test_id is 'ID теста';
 Comment on column ailp.test_results.question_id is 'ID вопроса';
 
 Comment on column ailp.test_results.user_id is 'ID пользователя';
+
+Comment on column ailp.test_results.answer_id is 'ID ответа';
 
 Comment on column ailp.test_results.result is 'Результат ответа';
 
@@ -254,10 +257,11 @@ Comment on column ailp.pages.comment is 'Комментарий';
 
 create table ailp.questions
 (
-  question_id bigint not null,
-  test_id     bigint,
-  question    text,
-  comment     text,
+  question_id   bigint not null,
+  test_id       bigint,
+  answer_option text,
+  question      text,
+  comment       text,
   PRIMARY KEY (question_id)
 );
 
@@ -266,6 +270,8 @@ Comment on table ailp.questions is 'Таблица вопросы';
 Comment on column ailp.questions.question_id is 'ID вопроса (суррогатный ключ)';
 
 Comment on column ailp.questions.test_id is 'ID теста';
+
+Comment on column ailp.questions.answer_option is 'Колиество и тип ответов';
 
 Comment on column ailp.questions.question is 'Текст вопроса';
 

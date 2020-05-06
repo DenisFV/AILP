@@ -13,6 +13,8 @@ public interface CommonService<T extends AbstractEntity> {
 
     Optional<T> save(T t);
 
+    Optional<List<T>> saveAll(List<T> tList);
+
     T update(T t);
 
     T create(T t);

@@ -10,10 +10,9 @@ import ru.ailp.entity.abstr.AbstractEntity;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = false)
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ApiModel(value = "QuestionAnswerHelper", description = "QuestionAnswerHelper")
 public class QuestionAnswerHelper extends AbstractEntity {
 
@@ -21,6 +20,7 @@ public class QuestionAnswerHelper extends AbstractEntity {
     @JsonProperty("question_id")
     Long id;
     Long testId;
+    String answerOption;
     String question;
     String comment;
     List<AnswerDto> answerList;

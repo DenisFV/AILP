@@ -31,7 +31,7 @@ public class EventLogLink extends DefaultLink<EventLogDto> {
     Link[] addLinks(EventLogDto eventLogDto, List<Link> links) {
         List<Link> linkList = new ArrayList<>();
 
-        linkList.add(linkTo(methodOn(EventLogController.class).saveEventLogEventHelper(eventLogDto.getPageId(), eventLogDto.getLessonId(), new EventLogEventHelper()))
+        linkList.add(linkTo(methodOn(EventLogController.class).saveEventLogEventHelper(EventLogEventHelper.builder().build()))
                 .withRel("saveEventLogEventHelper")
                 .withType(HttpMethod.POST.name())
                 .withTitle("Сохранить EventLogEventHelper обект"));

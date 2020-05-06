@@ -1,7 +1,9 @@
 package ru.ailp.entity;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.ailp.entity.abstr.AbstractEntity;
@@ -14,6 +16,7 @@ import java.util.Set;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "users", schema = "ailp")
 public class UserEntity extends AbstractEntity implements UserDetails {
@@ -22,14 +25,14 @@ public class UserEntity extends AbstractEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_user_id_seq")
     @SequenceGenerator(name = "users_user_id_seq", sequenceName = "ailp.users_user_id_seq", allocationSize = 1)
     @Column(name = "user_id")
-    private Long id;
-    private Long planId;
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private LocalDateTime createDate;
-    private Boolean isActive;
+    Long id;
+    Long planId;
+    String username;
+    String password;
+    String firstName;
+    String lastName;
+    LocalDateTime createDate;
+    Boolean isActive;
 
     @ElementCollection(targetClass = UserRoleEntity.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), schema = "ailp")

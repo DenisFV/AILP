@@ -14,6 +14,8 @@ import ru.ailp.controller.link.DefaultLink;
 import ru.ailp.entity.abstr.AbstractEntity;
 import ru.ailp.service.abstr.CommonService;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -59,6 +61,14 @@ public abstract class AbstractController<T extends AbstractEntity, S extends Com
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<CollectionModel<EntityModel<T>>> saveAll(List<T> tList) {
+        log.info("Сохранение / Обновление списка объектов: {}", tList);
+
+        return service.saveAll(tList)
+                .map(e -> ResponseEntity.ok(link.toCollectionModel(tList)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     @DeleteMapping("/{id:[\\d]+}")
     public ResponseEntity<EntityModel<T>> deleteById(@ApiParam(value = "Индентификатор объекта", example = "1") @PathVariable Long id) {

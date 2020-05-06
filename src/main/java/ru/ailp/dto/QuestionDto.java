@@ -17,6 +17,7 @@ public class QuestionDto extends AbstractEntity {
     @JsonProperty("question_id")
     Long id;
     Long testId;
+    String answerOption;
     String question;
     String comment;
 }

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ailp.entity.abstr.AbstractEntity;
 
+import java.util.List;
+
 public interface CommonController<T extends AbstractEntity> {
 
     @RequestMapping(value = "/{id:[\\d]+}", method = RequestMethod.HEAD)
@@ -20,6 +22,9 @@ public interface CommonController<T extends AbstractEntity> {
 
     @PostMapping("/")
     ResponseEntity<EntityModel<T>> save(@RequestBody T t);
+
+    @PostMapping("/")
+    ResponseEntity<CollectionModel<EntityModel<T>>> saveAll(@RequestBody List<T> t);
 
     @DeleteMapping("/{id:[\\d]+}")
     ResponseEntity<EntityModel<T>> deleteById(@ApiParam(value = "Индентификатор объекта", example = "1") @PathVariable Long id);

@@ -1,27 +1,25 @@
-package ru.ailp.dto.helper;
+package ru.ailp.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import ru.ailp.dto.EventDto;
 import ru.ailp.entity.abstr.AbstractEntity;
-
-import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = false)
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@ApiModel(value = "EventLogEventHelper", description = "EventLogEventHelper")
-public class EventLogEventHelper extends AbstractEntity {
+@ApiModel(value = "TestResultDto", description = "TestResultDto")
+public class TestResultDto extends AbstractEntity {
 
     @ApiModelProperty(value = "Индентификатор объекта", position = 1, example = "1")
-    @JsonProperty("event_log_id")
+    @JsonProperty("test_result_id")
     Long id;
+    Long testId;
+    Long questionId;
     Long userId;
-    EventDto eventDto;
-    LocalDateTime eventDate;
-    Long pageId;
-    Long lessonId;
+    Long answerId;
+    String result;
+    String comment;
 }

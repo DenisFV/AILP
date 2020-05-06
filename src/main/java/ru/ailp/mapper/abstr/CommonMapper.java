@@ -11,4 +11,6 @@ public interface CommonMapper<T extends AbstractEntity, D extends AbstractEntity
     D entityToDto(T t);
 
     List<D> entityListToDtoList(List<T> t);
+
+    List<T> dtoListToEntityList(List<D> d);
 }

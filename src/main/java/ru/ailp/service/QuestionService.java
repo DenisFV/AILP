@@ -35,6 +35,19 @@ public class QuestionService extends AbstractService<QuestionEntity, QuestionDto
         this.answerService = answerService;
     }
 
+    private List<QuestionAnswerHelper> buildQuestionAnswerHelperList(List<QuestionAnswerHelper> questionAnswerHelperList) {
+        return questionAnswerHelperList.stream()
+                .map(e -> QuestionAnswerHelper.builder()
+                        .id(e.getId())
+                        .answerList(answerService.findByQuestionId(e.getId()))
+                        .answerOption(e.getAnswerOption())
+                        .comment(e.getComment())
+                        .question(e.getQuestion())
+                        .testId(e.getTestId())
+                        .build()
+                ).collect(Collectors.toList());
+    }
+
     public List<QuestionDto> findByTestId(Long testId) {
         log.info("id объекта на входе: {}", testId);
 
@@ -46,8 +59,6 @@ public class QuestionService extends AbstractService<QuestionEntity, QuestionDto
     public List<QuestionAnswerHelper> findQuestionAnswerHelperListByTestId(Long lessonTestId) {
         log.info("id объекта на входе: {}", lessonTestId);
 
-        return questionMapper.questionDtoListToQuestionAnswerHelperList(findByTestId(lessonTestId)).stream()
-                .peek(e -> e.setAnswerList(answerService.findByQuestionId(e.getId())))
-                .collect(Collectors.toList());
+        return buildQuestionAnswerHelperList(questionMapper.questionDtoListToQuestionAnswerHelperList(findByTestId(lessonTestId)));
     }
 }

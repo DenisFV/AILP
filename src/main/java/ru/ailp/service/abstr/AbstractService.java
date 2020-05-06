@@ -56,6 +56,18 @@ public abstract class AbstractService<T extends AbstractEntity, D extends Abstra
     }
 
     @Override
+    public Optional<List<D>> saveAll(List<D> dList) {
+        try {
+            List<D> all = mapper.entityListToDtoList(repo.saveAll(mapper.dtoListToEntityList(dList)));
+            log.info("Все записи успешно сохранены");
+            return Optional.of(all);
+        } catch (Exception e) {
+            log.info("Не удалось сохранить все записи: {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public D update(D d) {
         log.info("Обновление объекта");
 

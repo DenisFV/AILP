@@ -14,7 +14,6 @@ import ru.ailp.mapper.EventLogMapper;
 import ru.ailp.repo.EventLogRepo;
 import ru.ailp.service.abstr.AbstractService;
 
-import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
 @Slf4j
@@ -32,17 +31,20 @@ public class EventLogService extends AbstractService<EventLogEntity, EventLogDto
         this.eventService = eventService;
     }
 
+    public EventLogEventHelper buildEventLogEventHelper(EventLogEventHelper eventLogEventHelper) {
+        return EventLogEventHelper.builder()
+                .id(eventLogEventHelper.getId())
+                .lessonId(eventLogEventHelper.getLessonId())
+                .pageId(eventLogEventHelper.getPageId())
+                .eventDate(eventLogEventHelper.getEventDate())
+//                .userId(UserService.getAuthenticationUser().getId())
+                .eventDto(eventService.findEventEntityByEventTypeAndEventName(eventLogEventHelper.getEventDto()))
+                .build();
+    }
+
     public Optional<EventLogDto> saveEventLogEventHelper(EventLogEventHelper eventLogEventHelper) {
         log.info("Объект на входе: {}", eventLogEventHelper);
 
-        eventLogEventHelper.setUserId(UserService.getAuthenticationUser().getId());
-
-        eventLogEventHelper.setEventDto(
-                Optional.ofNullable(eventLogEventHelper.getEventDto())
-                        .map(eventService::findEventEntityByEventTypeAndEventName)
-                        .orElseThrow(() -> new NotFoundException("Событие не указано"))
-        );
-
-        return save(eventLogMapper.eventLogEventHelperToEventLogDto(eventLogEventHelper));
+        return save(eventLogMapper.eventLogEventHelperToEventLogDto(buildEventLogEventHelper(eventLogEventHelper)));
     }
 }

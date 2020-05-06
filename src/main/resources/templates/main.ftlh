@@ -17,7 +17,7 @@
         $('#back').on('click', function () {
 
             var eventDto = {eventType: 'click', eventName: this.name};
-            var eventLogDto = {eventDto: eventDto, eventDate: new Date()};
+            var eventLogDto = {eventDto: eventDto, eventDate: new Date(), pageId: 1, lessonId: 1};
 
             $.ajax({
                 url: '/event-log/1/1',
