@@ -1,4 +1,4 @@
-package ru.ailp.config;
+package ru.ailp.config.custom;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler im
     @Override
     public void onLogoutSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication auth) {
 
-        log.info("Referer : {}, user_ip : {}", req.getHeader("Referer"), HttpReqRespUtils.getRemoteIP(req));
+        log.info("Logout : {}, user_ip : {}", req.getRequestURL(), HttpReqRespUtils.getRemoteIP(req));
 
         super.onLogoutSuccess(req, resp, auth);
     }

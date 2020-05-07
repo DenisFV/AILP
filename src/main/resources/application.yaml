@@ -4,32 +4,114 @@ info.app:
   version: 1.0.0
 
 server:
- port: 8000
- address: localhost
+  port: 8000
+  address: localhost
+  tomcat.protocol-header-https-value: http
+
+baseurl: '{server.tomcat.protocol-header-https-value}://{server.address}:{server.port}'
 
 spring:
- profiles.active: dev
- datasource:
-  url: jdbc:postgresql://localhost:5432/ailp?currentSchema=ailp
-  driverClassName: org.postgresql.Driver
-  username: postgres
-  password: root
- freemarker.expose-request-attributes: true
+  profiles.active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ailp?currentSchema=ailp
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: root
+  freemarker.expose-request-attributes: true
 
- jpa:
-   show-sql: true
-   hibernate.ddl-auto: none
-   generate-ddl: false
-   open-in-view: true
-   properties.hibernate:
-    format_sql: true
-    temp.use_jdbc_metadata_defaults: false
-    jdbc.lob.non_contextual_creation: true
-    dialect: org.hibernate.dialect.PostgreSQLDialect
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: none
+    generate-ddl: false
+    open-in-view: true
+    properties.hibernate:
+      format_sql: true
+      temp.use_jdbc_metadata_defaults: false
+      jdbc.lob.non_contextual_creation: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
 
- session.jdbc:
-  initialize-schema: always
-  table-name: SPRING_SESSION
+  session.jdbc:
+    initialize-schema: always
+    table-name: SPRING_SESSION
+
+  main:
+    allow-bean-definition-overriding: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: a2d9fedb92d1db87ab1f
+            clientSecret: 7ed774f9f7fab877404b0210e7b35c605bc699d8
+            scope:
+              - user
+          google:
+            client-id: 317870640514-1013l0orepvm4eotuhe7drkrllkns1il.apps.googleusercontent.com
+            client-secret: bdYrE6oXStU0FPEvqxRuse_M
+            scope:
+              - email
+              - profile
+          facebook:
+            clientId: 712270179603029
+            clientSecret: 664e93ce4dfa86b3a6b845a5688bb59c
+          vk:
+            client-id: 7434594
+            client-secret: disgkOKdzISgZWFIqAdt
+            client-authentication-method: post
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            scope:
+              - identify
+        provider:
+          vk:
+            authorization-uri: https://oauth.vk.com/authorize?display=page&v=5.103
+            token-uri: https://oauth.vk.com/access_token
+            user-info-uri: https://api.vk.com/method/users.get?v=5.103&access_token={access_token}&fields=email,city,country,photo_max&display=popup&lang=ru
+          facebook:
+            user-info-uri: https://graph.facebook.com/me?fields=id,name,email,hometown,address,picture
+
+
+
+
+
+
+
+
+  #     linkedin:
+  #      provider: linkedin
+  #      client-id: MY_CLIENT_ID
+  #      client-secret: MY_CLIENT_SECRET
+  #      user-authorization-uri: https://www.linkedin.com/oauth/v2/authorization
+  #      access-token-uri: https://www.linkedin.com/oauth/v2/accessToken
+
+#          linkedin:
+#            client-id: enter-client-id
+#            client-secret: enter-client-secret
+#            client-authentication-method: post
+#            authorization-grant-type: authorization_code
+#            redirect-uri-template: "${baseUrl}/login/oauth2/code/${registrationId}"
+#            scope: r_basicprofile, r_emailaddress
+#            client-name: Linkedin
+#        provider:
+#          linkedin:
+#            authorization-uri: https://www.linkedin.com/oauth/v2/authorization
+#            token-uri: https://www.linkedin.com/oauth/v2/accessToken
+#            user-info-uri: https://api.linkedin.com/v1/people/~?format=json
+#            user-name-attribute: id
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 logging:
   level:

@@ -1,25 +1,26 @@
 package ru.ailp.entity;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import ru.ailp.entity.abstr.AbstractEntity;
+import ru.ailp.entity.enums.AuthProvider;
+import ru.ailp.entity.enums.UserRole;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "users", schema = "ailp")
-public class UserEntity extends AbstractEntity implements UserDetails {
+public class UserEntity extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_user_id_seq")
@@ -29,38 +30,24 @@ public class UserEntity extends AbstractEntity implements UserDetails {
     Long planId;
     String username;
     String password;
+    String email;
+    String imageUrl;
     String firstName;
     String lastName;
+    String country;
+    String city;
     LocalDateTime createDate;
     Boolean isActive;
+    String providerId;
 
-    @ElementCollection(targetClass = UserRoleEntity.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    AuthProvider provider;
+
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), schema = "ailp")
     @Enumerated(EnumType.STRING)
-    private Set<UserRoleEntity> roles = new HashSet<>();
+    Set<UserRole> roles = new HashSet<>();
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return getIsActive();
-    }
+    @Transient
+    Map<String, Object> attributes;
 }

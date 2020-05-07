@@ -1,7 +1,9 @@
 package ru.ailp.controller;
 
 import io.swagger.annotations.Api;
+import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("test-result")
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Api(tags = "TestResultController", description = "TestResultController")
 public class TestResultController extends AbstractController<TestResultDto, TestResultService> {
 

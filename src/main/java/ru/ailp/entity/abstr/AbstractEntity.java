@@ -16,5 +16,5 @@ import java.io.Serializable;
 public abstract class AbstractEntity implements Serializable {
 
     @Transient
-    Long Id;
+    Long id;
 }

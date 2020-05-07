@@ -1,4 +1,4 @@
-package ru.ailp.config;
+package ru.ailp.config.custom;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +18,14 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
     @SneakyThrows
     @Override
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, FilterChain chain, Authentication auth) {
-
-        log.info("Referer : {}, user_ip : {}", req.getHeader("Referer"), HttpReqRespUtils.getRemoteIP(req));
-
-        resp.sendRedirect("/");
+        onAuthenticationSuccess(req, resp, auth);
     }
 
     @SneakyThrows
     @Override
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication auth) {
 
-        log.info("Referer : {}, user_ip : {}", req.getHeader("Referer"), HttpReqRespUtils.getRemoteIP(req));
+        log.info("Login : {}, user_ip : {}", req.getRequestURL(), HttpReqRespUtils.getRemoteIP(req));
 
         resp.sendRedirect("/");
     }

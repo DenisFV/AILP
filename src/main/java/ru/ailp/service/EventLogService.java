@@ -37,7 +37,7 @@ public class EventLogService extends AbstractService<EventLogEntity, EventLogDto
                 .lessonId(eventLogEventHelper.getLessonId())
                 .pageId(eventLogEventHelper.getPageId())
                 .eventDate(eventLogEventHelper.getEventDate())
-//                .userId(UserService.getAuthenticationUser().getId())
+                .userId(UserService.getAuthenticationUser().getId())
                 .eventDto(eventService.findEventEntityByEventTypeAndEventName(eventLogEventHelper.getEventDto()))
                 .build();
     }

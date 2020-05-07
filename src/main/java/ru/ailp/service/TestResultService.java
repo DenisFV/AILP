@@ -40,7 +40,7 @@ public class TestResultService extends AbstractService<TestResultEntity, TestRes
                         .result(e.getResult())
                         .testId(e.getTestId())
                         .comment(e.getComment())
-//                        .userId(UserService.getAuthenticationUser().getId())
+                        .userId(UserService.getAuthenticationUser().getId())
                         .build()
                 ).collect(Collectors.toList());
     }

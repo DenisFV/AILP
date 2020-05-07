@@ -31,7 +31,7 @@ public class HttpReqRespUtils {
 
         if (request == null) return "0.0.0.0";
 
-        log.info("IP_HEADER_NAMES : {}",
+        log.debug("IP_HEADER_NAMES : {}",
                 IP_HEADER_NAMES.stream().map(e -> e + " : " + request.getHeader(e)).collect(Collectors.toList()));
 
         Optional<String[]> ip = IP_HEADER_NAMES.stream()
