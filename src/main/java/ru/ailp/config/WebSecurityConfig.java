@@ -34,13 +34,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @NonNull CustomLogoutSuccessHandler logoutSuccessHandler;
     @NonNull CustomLoginSuccessHandler loginSuccessHandler;
     @NonNull CustomOAuth2UserService customOAuth2UserService;
+    @NonNull CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Autowired
-    public WebSecurityConfig(UserService userService, CustomLogoutSuccessHandler logoutSuccessHandler, CustomLoginSuccessHandler loginSuccessHandler, @NonNull CustomOAuth2UserService customOAuth2UserService) {
+    public WebSecurityConfig(
+            UserService userService,
+            CustomLogoutSuccessHandler logoutSuccessHandler,
+            CustomLoginSuccessHandler loginSuccessHandler,
+            CustomOAuth2UserService customOAuth2UserService,
+            CustomAuthenticationFailureHandler customAuthenticationFailureHandler
+    ) {
         this.userService = userService;
         this.logoutSuccessHandler = logoutSuccessHandler;
         this.loginSuccessHandler = loginSuccessHandler;
         this.customOAuth2UserService = customOAuth2UserService;
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
     }
 
 //    @SneakyThrows
@@ -62,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .oauth2Login()
+                .failureHandler(customAuthenticationFailureHandler)
                 .successHandler(loginSuccessHandler)
                 .permitAll()
 
